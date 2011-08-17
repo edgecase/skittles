@@ -231,6 +231,16 @@ module Skittles
       def venue_tips(id, options = {})
         get("venues/#{id}/tips", options).tips
       end
-		end
+
+      # Get a list of venues the current user manages.
+      # @return [Hashie:Mash] An array of objects representing venues
+      # requires_acting_user Yes
+      # @see https://developer.foursquare.com/merchant/venues/managed.html
+      def managed_venues()
+
+        get("venues/managed").venues
+      end
+
+    end
 	end
 end
