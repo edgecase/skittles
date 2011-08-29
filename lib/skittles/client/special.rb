@@ -42,6 +42,63 @@ module Skittles
       def special_search(ll, options = {})
         get('specials/search', { :ll => ll }.merge(options)).specials
       end
+
+      # Create a new special for the authenticated business
+      #
+      # @return [Hashie:Mash] A complete special
+      # @param name [String] Required. A name for the special.
+      # @param text [String] Required. Text description for the special.
+      # @param unlockedText [String] Required. Special text that is shown when the user has unlocked the special.
+      # @param finePrint [String] Fine print, shown in small type on the special detail page.
+      # @param type [String] Required. The type of special. Must be one of: mayor, frequency, count, regular, swarm, friends, flash.
+      # @param count1 [Integer] Count for frequency, count, regular, swarm, friends, and flash specials.
+      # @param options [Integer] Secondary count for regular, flash specials.
+      # @param options [Integer] Tertiary count for flash specials.
+      # @require_acting_user Yes
+      # @see https://developer.foursquare.com/merchant/specials/add.html
+      def add_special(name, text, unlocked_text, fine_print=nil, type=:regular, count1=1, count2=nil, count3=nil)
+        post("specials/add", {
+                               :name         => name,
+                               :unlockedText => unlocked_text,
+                               :finePrint    => fine_print,
+                               :type         => type,
+                               :count1       => count1,
+                               :count2       => count2,
+                               :count3       => count3
+                            }).special
+      end
+
+      # Retire a special for the authenticated business
+      #
+      # @return [Integer] A success code or an error message.
+      # @param special_id [Integer] Required. The id for the special as returned by the Foursquare API.
+      # @require_acting_user Yes
+      # @see https://developer.foursquare.com/merchant/specials/retire.html
+      def retire_special(special_id)
+        post("specials/#{special_id}/retire")
+      end
+
+      # List specials for the given venues
+      #
+      # @param venue_ids [Array] Required. One or more venue ids for which to list specials.
+      # @param status [String] Which specials to return: pending, active, expired, all. Defaults to all.
+      # @return [specials] An object with count and individual special items.
+      # @see https://developer.foursquare.com/merchant/specials/list.html
+      def list_specials(venue_ids=[], status=:all)
+        venue_ids = [venue_ids] unless venue_ids.respond_to?(:each)
+
+        get("specials/list", { :venueId => venue_ids.join(","), :status => status })
+      end
+
+      # View special configuration details related to its campaign
+      #
+      # @param venue_ids [Array] Required. One or more venue ids for which to list specials.
+      # @param status [String] Which specials to return: pending, active, expired, all. Defaults to active.
+      # @return [special] A special configuration object.
+      # @see https://developer.foursquare.com/merchant/specials/list.html
+      def configuration_for_special(special_id)
+        get("specials/#{special_id}").special
+      end
     end
   end
 end
