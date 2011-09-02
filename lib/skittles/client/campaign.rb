@@ -21,8 +21,8 @@ module Skittles
           raise ArgumentError.new("start_at must be sooner than 10 minutes ago according to the Foursquare API")
         end
 
-        group_id = [group_id] unless group_id.respond_to?(:each)
-        venue_id = [venue_id] unless venue_id.respond_to?(:each)
+        group_id = (group_id || []).map
+        venue_id = (venue_id || []).map
 
         post("campaigns/add", {
                                  :specialId => special_id,
