@@ -15,7 +15,7 @@ module Skittles
       # @see https://developer.foursquare.com/merchant/campaigns/add.html
       def add_campaign(special_id, group_id=nil, venue_id=nil, start_at=nil, end_at=nil)
         if start_at && start_at < 10.minutes.ago
-          raise ArgumentError.new("start_at must be sooner than 10 minutes ago according to the Foursqaure API")
+          raise ArgumentError.new("start_at must be sooner than 10 minutes ago according to the Foursquare API")
         end
 
         group_id = [group_id] unless group_id.respond_to?(:each)
