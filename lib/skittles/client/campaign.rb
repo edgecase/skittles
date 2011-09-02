@@ -28,8 +28,8 @@ module Skittles
                                  :specialId => special_id,
                                  :groupId   => group_id.join(","),
                                  :venueId   => venue_id.join(","),
-                                 :startAt   => start_at,
-                                 :endAt     => end_at
+                                 :startAt   => start_at.to_i,
+                                 :endAt     => end_at.to_i
                               }).campaign
       end
 
