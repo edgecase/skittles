@@ -59,6 +59,7 @@ module Skittles
       def add_special(name, text, unlocked_text, fine_print=nil, type=:regular, count1=1, count2=nil, count3=nil)
         post("specials/add", {
                                :name         => name,
+                               :text         => text,
                                :unlockedText => unlocked_text,
                                :finePrint    => fine_print,
                                :type         => type,
