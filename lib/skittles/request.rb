@@ -9,15 +9,9 @@ module Skittles
       if %w{get post put delete}.include?(sym.to_s)
         path = args.first
 
-        if args.size > 1
-          options = args[1]
-          headers = args[2]
-          raw     = args[3]
-        else
-          options = {}
-          headers = {}
-          raw     = false
-        end
+        options = args[1] || {}
+        headers = args[2] || {}
+        raw     = args[3]
 
         request(sym, path, options, headers, raw)
       else
