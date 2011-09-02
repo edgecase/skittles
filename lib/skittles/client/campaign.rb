@@ -14,6 +14,9 @@ module Skittles
       # @require_acting_user Yes
       # @see https://developer.foursquare.com/merchant/campaigns/add.html
       def add_campaign(special_id, group_id=nil, venue_id=nil, start_at=nil, end_at=nil)
+        if start_at && start_at.today?
+          start_at = DateTime.now
+        end
         if start_at && start_at < 10.minutes.ago
           raise ArgumentError.new("start_at must be sooner than 10 minutes ago according to the Foursquare API")
         end
