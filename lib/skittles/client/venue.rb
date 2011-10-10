@@ -246,7 +246,8 @@ module Skittles
       # @option options [Integer] endAt The end of the time range to retrieve stats for (seconds since epoch). If omitted, the current time is assumed.
       # @see https://developer.foursquare.com/merchant/venues/stats.html
       def venue_stats(id, start_at=nil, end_at=nil)
-        get("venues/#{id}/stats", {:startAt => start_at, :endAt => end_at}).stats
+        options = {:startAt => start_at, :endAt => end_at}.delete_if { |k,v| v.nil?}
+        get("venues/#{id}/stats", options).stats
       end
 
       # Get daily venue stats for a list of venues over a time range.
@@ -256,7 +257,8 @@ module Skittles
       # @option options [Integer] endAt The end of the time range to retrieve stats for (seconds since epoch). If omitted, the current time is assumed.
       # @see https://developer.foursquare.com/merchant/venues/timeseries.html
       def timeseries(id, start_at=nil, end_at=nil)
-        get("venues/timeseries", {:venueId => id, :startAt => start_at, :endAt => end_at}).timeseries
+        options = {:venueId => id, :startAt => start_at, :endAt => end_at}.delete_if { |k,v| v.nil?}
+        get("venues/timeseries", options).timeseries
       end
 
     end
