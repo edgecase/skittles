@@ -15,5 +15,5 @@ end
 
 gem "oauth2",     "~> 0.4.1"
 gem "yajl-ruby",  "~> 0.8.1"
-gem "hashie",     "~> 1.0.0"
+gem "hashie",     "~> 1.2.0"
 gem "mime-types", "~> 1.16"
